@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>All Posts</title>
+    </h:head>
+    <h:body>
+        <h:messages/>
+        <h:form>
+            <h:commandButton value="home" action="index"/>
+            &nbsp;
+            <h:commandButton value="list" action="#{blogManager.listAll}"/>
+            &nbsp;
+            <h:commandButton value="new" action="new-post"/>
+        </h:form>
+        <br/>
+        <h:form>
+            <h:panelGrid columns="2">
+                Author:
+                <h:inputText id="authorSearch" value="#{blogManager.authorSearch}"/>
+                Title:
+                <h:inputText id="titleSearch" value="#{blogManager.titleSearch}"/>
+            </h:panelGrid>
+            <h:commandButton value="search" action="#{blogManager.search}">
+                <f:ajax execute="@form" render="postsTable searchParams"/>
+                <!-- <f:ajax execute="@this authorSearch" render="postsTable searchParams"/>-->
+            </h:commandButton>
+            <br/>
+            <h:outputText id="searchParams" value="#{blogManager.searchParams}"/>
+            <br/>
+            <h:dataTable id="postsTable" value="#{blogManager.posts}" var="item">
+                <h:column>
+                    <f:facet name="header">
+                        ID
+                    </f:facet>
+
+                    #{item.id}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Title
+                    </f:facet>
+
+                    #{item.title}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Author
+                    </f:facet>
+                    #{item.author}
+                </h:column>
+                <h:column>
+                    <h:commandLink value="edit" action="new-post">
+                        <f:setPropertyActionListener value="#{item}" target="#{blogManager.post}"/>
+                    </h:commandLink>
+                    &nbsp;
+                    <h:commandLink value="remove" action="#{blogManager.removePost(item)}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

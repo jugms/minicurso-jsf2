@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='ISO-8859-2' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
+    <h:head>
+        <title>New Post</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:panelGrid columns="3">
+               Title:
+                <h:inputText id="title" value="#{blogManager.post.title}"/>
+                <h:message for="title"/>
+
+                Content:
+                <h:inputTextarea id="content" value="#{blogManager.post.content}"/>
+                <h:message for="content"/>
+
+                Author:
+                <h:inputText id="author" value="#{blogManager.post.author}"/>
+                <h:message for="author"/>
+
+                Publish at:
+                <h:inputText id="publishAt" value="#{blogManager.post.publishAt}">
+                    <f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss"/>
+                </h:inputText>
+                <h:message for="publishAt"/>
+
+            </h:panelGrid>
+            <h:commandButton value="Preview!" action="preview"/>
+            &nbsp;
+            <h:commandButton value="Cancel =(" action="list" immediate="true"/>
+        </h:form>
+    </h:body>
+</html>
+
