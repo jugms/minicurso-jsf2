@@ -17,18 +17,17 @@ import javax.naming.NamingException;
  *
  * @author Joao
  */
-@FacesConverter(forClass = Post.class)
+@Named
 public class PostConverter implements Converter {
 
+	@EJB
     private BlogManager blogManager;
 
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        blogManager = getBlogManager();
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {             
         Object o = blogManager.findById(Long.valueOf(value));
         blogManager.destroy();
         return o;
-
     }
 
     @Override
@@ -36,19 +35,5 @@ public class PostConverter implements Converter {
         Post post = (Post) value;
         if(post.getId() == null) return "";
         return post.getId().toString();
-    }
-
-    public BlogManager getBlogManagerJndi() {
-        try {
-            InitialContext initialContext = new InitialContext();
-            return (BlogManager) initialContext.lookup("java:module/BlogManager");
-        } catch (NamingException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public BlogManager getBlogManager(){
-        return (BlogManager) JsfUtil.getBeanObject(BlogManager.class);
     }
 }

@@ -4,7 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <f:metadata>
-        <f:viewParam name="post" value="#{blogManager.post}"/>
+        <f:viewParam name="post" value="#{blogManager.post}" converter="#{postConverter}"/>
     </f:metadata>
     <h:head>
         <title>New Post</title>
